@@ -1,0 +1,32 @@
+services:
+  api:
+    build: .
+    ports:
+      - 8000:8000
+    environment:
+      DB_NAME: usersManagement
+      DB_URL: mongodb://db/userManagement
+      SMTP_HOST: smtp
+      SMTP_PORT: 25
+    volumes:
+      - /home/dinesh/Work/UserManagementSystem:/app
+
+  smtp:
+    image: rnwood/smtp4dev:latest
+    ports:
+      - 3000:80
+      - 2525:25
+
+    volumes:
+      - smtp4dev-data:/smtp4dev
+
+  db:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - userManagement:/data/db
+
+volumes:
+  userManagement:
+  smtp4dev-data:
